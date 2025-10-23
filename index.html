@@ -53,39 +53,35 @@
       <div class="container is-max-desktop-wide">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-2 publication-title">Block Diffusion: Interpolating Between Autoregressive and Diffusion Language Models</h1>
+            <h1 class="title is-1 publication-title">Encoder-Decoder Diffusion Language Models for Efficient Training and Inference</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="https://m-arriola.com/" target="_blank">Marianne Arriola</a><sup>1</sup>,</span>
+                <a href="https://m-arriola.com/" target="_blank">Marianne Arriola</a><sup>*</sup>,</span>
                 <span class="author-block">
-                  <a href="https://skylion007.github.io/" target="_blank">Aaron Gokaslan</a><sup>1</sup>,</span>
+                  <a href="https://yair-schiff.github.io" target="_blank">Yair Schiff</a><sup>*</sup>,</span>
                   <span class="author-block">
-                    <a href="https://justinchiu.netlify.app/" target="_blank">Justin Chiu</a><sup>2</sup>,</span>
+                    <a href="https://hao-pt.github.io" target="_blank">Hao Phung</a>,</span>
                       <span class="author-block">
-                        <a href="https://zhihanyang2022.github.io/" target="_blank">Zhihan Yang</a><sup>1</sup>,</span>
-                        <span class="author-block">
-                          <a href="https://zhixuanqi.com/" target="_blank">Zhixuan Qi</a><sup>1</sup>,</span>
-                          <span class="author-block">
-                            <a href="https://hanjq17.github.io/" target="_blank">Jiaqi Han</a><sup>3</sup>,</span>
-                            <span class="author-block">
-                              <a href="https://s-sahoo.com/" target="_blank">Subham Sahoo</a><sup>1</sup>,</span>
+                        <a href="https://skylion007.github.io/" target="_blank">Aaron Gokaslan Yang</a>,</span>
                   <span class="author-block">
-                    <a href="https://www.cs.cornell.edu/~kuleshov/" target="_blank">Volodymyr Kuleshov</a><sup>1</sup>
+                    <a href="https://www.cs.cornell.edu/~kuleshov/" target="_blank">Volodymyr Kuleshov</a>
                   </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block"><sup>1</sup>Cornell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="author-block"><sup>2</sup>Cohere&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="author-block"><sup>3</sup>Stanford</span>
+                    <span class="author-block">Department of Computer Science, Cornell University</span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>*</sup>Equal contribution; corresponding authors</span>
                   </div>
 
                   <div class="is-size-5 publication-flag" style="padding-top: 20px; padding-bottom: 20px;">
-                    <b>ICLR 2025 Oral</b>
+                    <b>NeurIPS 2025</b>
                   </div>
                   <span class="link-block">
-                    <a href="https://arxiv.org/abs/2503.09573" target="_blank"
+                    <a href="https://openreview.net/forum?id=5jneOToPou&referrer=%5Bthe%20profile%20of%20Marianne%20Arriola%5D(%2Fprofile%3Fid%3D~Marianne_Arriola1)" target="_blank"
                        class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         <i class="fas fa-file"></i>
@@ -96,7 +92,7 @@
 
                   <!-- Github link -->
                   <span class="link-block">
-                    <a href="https://github.com/kuleshov-group/bd3lms" target="_blank"
+                    <a href="https://github.com/kuleshov-group/e2d2" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -106,7 +102,7 @@
                 </span>
                 
                 <span class="link-block">
-                  <a href="https://huggingface.co/collections/kuleshov-group/BD3-LMs-67be95f81b96b15fec50d53f" target="_blank"
+                  <a href="https://huggingface.co/collections/kuleshov-group/e2d2" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <img src="static/images/hf.png" alt="Hugging Face" style="width: 20px; height: 20px; vertical-align: middle;">
@@ -126,7 +122,7 @@
 
 
 <!-- Teaser video-->
-<section class="hero teaser is-max-desktop">
+<!-- <section class="hero teaser is-max-desktop">
   <div class="container">
     <div class="hero-body">
       <h2 class="subtitle has-text-centered">
@@ -147,12 +143,6 @@
       </h2>
       <img src="static/images/mdlm.gif" style="padding-bottom: 60px;">
       <h2 class="subtitle has-text-centered" style="padding-top: 20px;">
-        <!-- <strong>Previous Diffusion LMs</strong>: 
-        <span style="color: red; padding-left: 10px;">&#10060; Lower quality</span> 
-        <span style="color: red; padding-left: 10px;">&#10060; Fixed-length</span> 
-        <span style="color: red; padding-left: 10px;">&#10060; No KV caching</span> 
-        <span style="color: green; padding-left: 10px;">&#9989; Parallelizable</span> 
-        <br><br> -->
         <strong>Block Diffusion</strong>: 
         <span style="color: green; padding-left: 10px;">&#9989; High quality</span> 
         <span style="color: green; padding-left: 10px;">&#9989; Arbitrary-length</span> 
@@ -162,7 +152,7 @@
       <img src="static/images/bd3.gif" style="padding-bottom: 20px; width:80%;">
       </div>
   </div>
-</section>
+</section> -->
 <!-- End teaser video -->
 
 <!-- Paper abstract -->
@@ -173,7 +163,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Diffusion language models offer unique benefits over autoregressive models due to their potential for parallelized generation and controllability, yet they lag in likelihood modeling and are limited to fixed-length generation. In this work, we introduce a class of block diffusion language models that interpolate between discrete denoising diffusion and autoregressive models. Block diffusion overcomes key limitations of both approaches by supporting flexible-length generation and improving inference efficiency with KV caching and parallel token sampling. We propose a recipe for building effective block diffusion models that includes an efficient training algorithm, estimators of gradient variance, and data-driven noise schedules to minimize the variance. Block diffusion sets a new state-of-the-art performance among diffusion models on language modeling benchmarks and enables generation of arbitrary-length sequences.
+            Discrete diffusion models enable parallel token sampling for faster inference than autoregressive approaches. However, prior diffusion models use a decoder-only architecture, which requires sampling algorithms that invoke the full network at every denoising step and incur high computational cost. Our key insight is that discrete diffusion models perform two types of computation: 1) representing clean tokens and 2) denoising corrupted tokens, which enables us to use separate modules for each task. We propose an encoder-decoder architecture to accelerate discrete diffusion inference, which relies on an encoder to represent clean tokens and a lightweight decoder to iteratively refine a noised sequence. We also show that this architecture enables faster training of block diffusion models, which partition sequences into blocks for better quality and are commonly used in diffusion language model inference. We introduce a framework for <strong>E</strong>fficient <strong>E</strong>ncoder-<strong>D</strong>ecoder <strong>D</strong>iffusion (E2D2), consisting of an architecture with specialized training and sampling algorithms, and we show that E2D2 achieves superior trade-offs between generation quality and inference throughput on summarization, translation, and mathematical reasoning tasks.
           </p>
         </div>
       </div>
@@ -183,7 +173,7 @@
 <!-- End paper abstract -->
 
 <!-- AR VS DIFFUSION -->
-<section class="section" id="SEC1">
+<!-- <section class="section" id="SEC1">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Autoregressive vs. Diffusion Language Models</h2>
@@ -203,7 +193,7 @@
       <p>where the denoising base model \( p_\theta(\mathbf{x}^\ell | \mathbf{x}_t) \) predicts clean token \( \mathbf{x}^\ell \) given noised tokens \( \mathbf{x}_t \). However, the diffusion objective minimizes a bound on the likelihood. As a result, diffusion models lag in terms of likelihood and sample quality. Furthermore, diffusion models are restricted to generate fixed length sequences.</p>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- BD3-LMs -->
 <style>
@@ -332,7 +322,15 @@
   }
 </style>
 
+<section class="section" id="SEC2">
+    <div class="container is-max-desktop">
+      <div class="content is-medium">
+        <strong>Work in progress. Expected publication date: Oct 27.</strong>
+      </div>
+    </div>
+</section>
 
+<!-- 
 <section class="section" id="SEC2">
   <div class="container is-max-desktop">
     <div class="content is-medium">
@@ -364,10 +362,10 @@
       </section>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- GAP -->
-<section class="section" id="SEC2">
+<!-- <section class="section" id="SEC2">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Understanding Likelihood Gaps Between Diffusion and AR Models</h2>
@@ -386,10 +384,10 @@
         We seek to find noise schedules that minimize training variance caused by the diffusion objective and further reduce the perplexity gap.</p>
       </div>
   </div>
-</section>
+</section> -->
 
 <!-- CLIPPED SCHEDULES -->
-<section class="section" id="SEC2">
+<!-- <section class="section" id="SEC2">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Data-Driven Noise Schedules for Low-Variance Training</h2>
@@ -400,70 +398,11 @@
       <p>Below, we show that optimizing the noise schedule per block size reduces the variance of the loss estimator and achieves the best perplexities compared to alternative schedules.</p>
     </div>
 
-    <table style="width: 80%; margin: 20px auto; border-collapse: collapse; font-size: 18px; text-align: center;">
-      <div class="figure-caption">
-        <center>
-        <i style="font-size: 19px;">Effect of training under different noise schedules on perplexity (PPL  ↓) on LM1B. All models are finetuned for 50K steps and are evaluated under uniformly sampled mask rates. For our clipped schedules, we compare the optimized clipping rates for \( L'=4, 16 \).</i>
-        </center>
-      </div>
-      <tr>
-          <th style="padding: 6px 10px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">BD3-LMs</th>
-          <th style="padding: 6px 10px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Noise schedule</th>
-          <th style="padding: 6px 10px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">PPL</th>
-          <th style="padding: 6px 10px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Var. ELBO</th>
-      </tr>
-  
-      <!-- Multi-row for L' = 4 -->
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: middle;" rowspan="4">L' = 4</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">Linear <em>t</em> ~ <em>U</em>[0, 1]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">30.18</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">23.45</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Clipped <em>t</em> ~ <em>U</em>[0.45, 0.95]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">29.21</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">6.24</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">Clipped <em>t</em> ~ <em>U</em>[0.3, 0.8]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">29.38</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">10.33</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 2px solid #ddd;">Logarithmic</td>
-          <td style="padding: 6px 10px; border-bottom: 2px solid #ddd;">30.36</td>
-          <td style="padding: 6px 10px; border-bottom: 2px solid #ddd;">23.53</td>
-      </tr>
-  
-      <!-- Multi-row for L' = 16 -->
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: none; font-weight: bold; vertical-align: middle;" rowspan="4">L' = 16</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">Linear <em>t</em> ~ <em>U</em>[0, 1]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">31.72</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">7.62</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">Clipped <em>t</em> ~ <em>U</em>[0.45, 0.95]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">31.42</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd;">3.60</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Clipped linear <em>t</em> ~ <em>U</em>[0.3, 0.8]</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">31.12</td>
-          <td style="padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold;">3.58</td>
-      </tr>
-      <tr>
-          <td style="padding: 6px 10px; border-bottom: none;">Cosine</td>
-          <td style="padding: 6px 10px; border-bottom: none;">31.41</td>
-          <td style="padding: 6px 10px; border-bottom: none;">13.00</td>
-      </tr>
-  </table>
   </div>
-</section>
+</section> -->
 
 <!-- RESULTS -->
-<section class="section" id="SEC2">
+<!-- <section class="section" id="SEC2">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Results</h2>
@@ -601,9 +540,6 @@
       
       
       <p> We assess the generation quality of BD3-LMs on variable-length sequences, comparing all methods using the same number of generation steps (NFEs). Below, we measure the generative perplexity of sampled sequences under GPT2-Large. BD3-LMs achieve the best generative perplexities compared to all previous diffusion methods.</p>
-
-
-      <!-- <p>We also compare with SSD-LM (<a href="https://arxiv.org/abs/2210.17432">Han et. al</a>), an alternative block-autoregressive formulation that performs Gaussian diffusion over word embeddings, as in other works such as Diffusion-LM (<a href="https://arxiv.org/abs/2205.14217">Li et. al</a>). Our approach instead applies discrete noise and can be seen as the analogous extension of <a href="https://arxiv.org/abs/2107.03006">Austin et. al</a>. Unlike BD3-LMs, SSD-LM does not support likelihood estimation. Thus, to compare the models, we generated unconditionally sequences of lengths 1024 and 2048. Our discrete approach yields samples with improved generative perplexity using an order magnitude fewer generation steps.</p> -->
         
       <style>
         table {
@@ -626,132 +562,42 @@
             margin-bottom: 10px;
         }
     </style>
-    <table style="border-collapse: collapse; width: 100%; margin-bottom:40px;">
-      <div class="figure-caption">
-        <center>
-          <i>Generative perplexity (Gen. PPL; ↓) and number of function evaluations (NFEs; ↓) of 300 variable-length samples. All models are trained on OWT with a context length L = 1024 and use nucleus sampling.</i>
-        </center>
-      </div>
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Model</th>
-          <th colspan="2"><center>L = 1024</center></th>
-          <th colspan="2"><center>L = 2048</center></th>
-        </tr>
-        <tr>
-          <th style="padding: 8px;"></th>
-          <th style="padding: 8px;"></th>
-          <th>Gen. PPL (↓)</th>
-          <th>NFEs</th>
-          <th>Gen. PPL (↓)</th>
-          <th>NFEs</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Autoregressive Section -->
-        <tr>
-          <td style="border-bottom: 2px solid black; text-align: left; padding: 8px;"><i>Autoregressive</i></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;">AR</td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>14.1</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>1K</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>13.2</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>2K</center></td>
-        </tr>
-    
-        <!-- Diffusion Section -->
-        <tr>
-          <td style="border-bottom: 2px solid black; text-align: left; padding: 8px;" rowspan="2"><i>Diffusion</i></td>
-          <td style="padding: 8px;">SEDD</td>
-          <td style="padding: 8px;"><center>52.0</center></td>
-          <td style="padding: 8px;"><center>1K</center></td>
-          <td style="padding: 8px;"><center>-</center></td>
-          <td style="padding: 8px;"><center>-</center></td>
-        </tr>
-        <tr>
-          <td style="border-bottom: 2px solid black; padding: 8px;">MDLM</td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>46.8</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>1K</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>41.3</center></td>
-          <td style="border-bottom: 2px solid black; padding: 8px;"><center>2K</center></td>
-        </tr>
-        
-        <!-- Block-diffusion Section -->
-        <tr>
-          <td style="border-bottom: none; text-align: left; padding: 8px;" rowspan="5"><i>Block diffusion</i></td>
-          <td style="border-bottom: none; padding: 8px;">SSD-LM L' = 25</td>
-          <td style="border-bottom: none; padding: 8px;"><center>37.2</center></td>
-          <td style="border-bottom: none; padding: 8px;"><center>40K</center></td>
-          <td style="border-bottom: none; padding: 8px;"><center>35.3</center></td>
-          <td style="border-bottom: none; padding: 8px;"><center>80K</center></td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;"></td>
-          <td style="border-top: none; padding: 8px;"><center>281.3</center></td>
-          <td style="border-top: none; padding: 8px;"><center>1K</center></td>
-          <td style="border-top: none; padding: 8px;"><center>261.9</center></td>
-          <td style="border-top: none; padding: 8px;"><center>2K</center></td>
-        </tr>
-        <tr>
-          <td style="border-top: 1px solid #000000; padding: 8px;border-bottom: none;"><strong>BD3-LMs</strong> L' = 16</td>
-          <td style="padding: 8px;border-bottom: none;"><center>33.4</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>1K</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>31.5</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>2K</center></td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;border-bottom: none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L' = 8</td>
-          <td style="padding: 8px;border-bottom: none;"><center>30.4</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>1K</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>28.2</center></td>
-          <td style="padding: 8px;border-bottom: none;"><center>2K</center></td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;" class="highlight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L' = 4</td>
-          <td style="padding: 8px;" class="highlight"><center><strong>25.7</strong></center></td>
-          <td style="padding: 8px;"><center>1K</center></td>
-          <td style="padding: 8px;" class="highlight"><center><strong>23.6</strong></center></td>
-          <td style="padding: 8px;"><center>2K</center></td>
-        </tr>
-        
-      </tbody>
-    </table>
     <p>For MDLM, we use their block-wise decoding technique (which does not feature block diffusion training as in BD3-LMs) for L=2048. We also compare to SSD-LM (<a href="https://arxiv.org/abs/2210.17432">Han et. al</a>) an alternative block-autoregressive method (also known as semi-autoregression) that performs Gaussian diffusion over word embeddings but cannot perform likelihood estimation. Our discrete approach yields samples with improved generative perplexity using an order of magnitude fewer generation steps.</p>
 
     </div>
   </div>
-</section>
+</section> -->
 
 
 <!-- CONCLUSION -->
-<section class="section" id="SEC2">
+<!-- <section class="section" id="SEC2">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Conclusion</h2>
       <p>We presented Block Discrete Diffusion Language models, a new model class that combines strength of both autoregressive and diffusion approaches while overcoming their limitations. Block diffusion overcomes key drawbacks of existing discrete diffusion models: the quality gap to AR model and their inability to generate arbitrary-length sequences or support KV caching. By doing so, BD3-LMs set a new state-of-the-art among discrete diffusion models. Our work presents a promising step forward in building powerful diffusion language models that are competitive with standard LLMs, while offering parallel token generation and improved controllability of samples.</p>
     </div>
   </div>
-</section>
+</section> -->
 
 
 
 
 <!--BibTex citation -->
-  <section class="section" id="BibTeX">
+  <!-- <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>
         @inproceedings{
-          arriola2025interpolating,
-          title={Interpolating Autoregressive and Discrete Denoising Diffusion Language Models},
-          author={Marianne Arriola and Aaron Gokaslan and Justin T Chiu and Jiaqi Han and Zhihan Yang and Zhixuan Qi and Subham Sekhar Sahoo and Volodymyr Kuleshov},
-          booktitle={The Thirteenth International Conference on Learning Representations},
+          arriola2025e2d2,
+          title={Encoder-Decoder Diffusion Language Models for Efficient Training and Inference},
+          author={Marianne Arriola and Yair Schiff and Hao Phung and Aaron Gokaslan and Volodymyr Kuleshov},
+          booktitle={Advances in Neural Information Processing Systems},
           year={2025},
-          url={https://openreview.net/forum?id=tyEyYT267x}
+          url={https://openreview.net/forum?id=5jneOToPou&referrer=%5Bthe%20profile%20of%20Marianne%20Arriola%5D(%2Fprofile%3Fid%3D~Marianne_Arriola1)}
         }
       </code></pre>
     </div>
-</section>
+</section> -->
 <!--End BibTex citation -->
 
 
