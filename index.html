@@ -53,7 +53,7 @@
       <div class="container is-max-desktop-wide">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-3 publication-title">Encoder-Decoder Diffusion Language Models for Efficient Training and Inference</h1>
+            <h1 class="title is-2 publication-title">Encoder-Decoder Diffusion Language Models for Efficient Training and Inference</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block"><a href="https://m-arriola.com/" target="_blank">Marianne Arriola</a><sup>*</sup>,</span>
@@ -154,6 +154,10 @@
 <!-- BD3-LMs -->
 <style>
 /* Compact, clean link chips */
+      .title.publication-title {
+        margin-bottom: 0.35rem !important;  /* default is ~1–1.5rem */
+        line-height: 1.15;                  /* reduces perceived vertical space */
+      }
       .publication-flag {
         padding-top: 8px !important; /* reduce vertical space below NeurIPS 2025 */
         padding-bottom: 8px !important; /* reduce vertical space below NeurIPS 2025 */
@@ -281,15 +285,6 @@
             margin-bottom: 10px;
             font-size: 16px;
         }
-        /* .title {
-          padding-bottom: 10px;
-          font-size: 25px;
-        } */
-        /* centers the title, minimize width of container */
-        /* .publication-title {
-          text-align: center;
-          max-width: 100%;
-        } */
   .color-box {
       display: inline-block;
       width: 20px;
