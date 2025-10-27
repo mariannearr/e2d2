@@ -74,38 +74,29 @@
             <div class="is-size-5 publication-flag" style="padding-top: 20px; padding-bottom: 20px;">
               <b>NeurIPS 2025</b>
             </div>
-            <span class="link-block">
+
+            <div class="link-buttons">
               <a href="https://openreview.net/forum?id=5jneOToPou&referrer=%5Bthe%20profile%20of%20Marianne%20Arriola%5D(%2Fprofile%3Fid%3D~Marianne_Arriola1)" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="fas fa-file"></i>
-                </span>
+                class="button link-chip">
+                <span class="icon"><i class="fas fa-file"></i></span>
                 <span>Paper</span>
               </a>
-            </span>
 
-            <!-- Github link -->
-            <span class="link-block">
               <a href="https://github.com/kuleshov-group/e2d2" target="_blank"
-              class="external-link button is-normal is-rounded is-dark">
-              <span class="icon">
-                <i class="fab fa-github"></i>
-              </span>
-              <span>Code</span>
-            </a>
-          </span>
-                
-          <span class="link-block">
-            <a href="https://huggingface.co/collections/kuleshov-group/e2d2" target="_blank"
-              class="external-link button is-normal is-rounded is-dark">
-              <span class="icon">
-                <img src="static/images/hf.png" alt="Hugging Face" style="width: 20px; height: 20px; vertical-align: middle;">
-              </span>
-              <span>HuggingFace</span>
-            </a>
-          </span>
-              
-              
+                class="button link-chip">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+
+              <a href="https://huggingface.co/collections/kuleshov-group/e2d2" target="_blank"
+                class="button link-chip">
+                <span class="icon">
+                  <img src="static/images/hf.png" alt="Hugging Face" class="hf-icon">
+                </span>
+                <span>HuggingFace</span>
+              </a>
+            </div>
+                          
         </div>
       </div>
     </div>
@@ -142,9 +133,7 @@
       </div>
   </div>
 </section> 
-<!-- End teaser video
 
-<!-- Paper abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -159,26 +148,57 @@
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
 
 
 
 <!-- BD3-LMs -->
 <style>
-      .link-block {
-          display: inline-block;
-          text-align: center;
-          margin: 4px;
-          font-size: 1.1em;
-        }
+/* Compact, clean link chips */
+      .link-buttons{
+        display:flex;
+        gap:.2rem;
+        justify-content:center;
+        align-items:center;
+        flex-wrap:wrap;
+        margin-top:.25rem;
+      }
 
-        .link-block .external-link.button {
-          font-size: 0.9em;
-        }
+      .link-chip{
+        /* base */
+        height:auto;                 /* let padding control height */
+        line-height:1.1;
+        font-size:.8rem;             /* slightly smaller */
+        font-weight:500;
+        padding:.15rem .7rem;        /* thinner */
+        border-radius:9999px;        /* pill */
+        border:1px solid #e0e0e0;    /* thin outline */
+        color:#fff;             /* ghost look on light bg */
+        background:#111;
+        box-shadow:none;
+      }
 
-        .link-block .icon {
-          font-size: 1.2em;
-        }
+      .link-chip .icon i{
+        font-size:.95em;
+      }
+
+      /* HF raster icon size */
+      .hf-icon{
+        width:16px;
+        height:16px;
+        display:block;
+      }
+
+      /* Hover/focus states */
+      .link-chip:hover{
+        border-color:#bdbdbd;
+        background:#fafafa;
+      }
+
+      .link-chip:focus{
+        outline:2px solid #8ab4f8;   /* accessible focus ring */
+        outline-offset:2px;
+      }
+
 
       .legend-box {
         background: rgb(214, 234, 248); /* same as box_fill */
@@ -209,9 +229,7 @@
             padding-right: 5%;
         }
         .hero-body {
-          display: flex;
-          flex-direction: column; /* Captions and figure container are in a vertical stack */
-          align-items: center;
+        text-align: center; /* keep your centering intention */
       }
       
       .subtitle.has-text-centered {
@@ -225,8 +243,6 @@
         .author-block {
           font-size: 18px;
         }
-
-
       
 
         .figure-caption-container {
