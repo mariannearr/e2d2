@@ -122,38 +122,36 @@
 
 
 <!-- Teaser video-->
-<!-- <section class="hero teaser is-max-desktop">
+<section class="hero teaser is-max-desktop">
   <div class="container">
     <div class="hero-body">
       <h2 class="subtitle has-text-centered">
-        <strong>Autoregression</strong>: 
-        <span style="color: green; padding-left: 10px;">&#9989; High quality</span> 
-        <span style="color: green; padding-left: 10px;">&#9989; Arbitrary-length</span>
-        <span style="color: green; padding-left: 10px;">&#9989; KV caching</span>
-        <span style="color: red; padding-left: 10px;">&#10060; Not parallelizable</span> 
+        <span style="color: #d32f2f">Slow, <b>decoder-only</b> diffusion.</span><br>
+         <span class="legend-box border-3-solid">Large decoder denoises tokens <i>and</i> caches clean context</span>
       </h2>
-      <img src="static/images/ar.gif" style="padding-bottom: 60px;">
+      <hr style="
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        width: 80%;
+        margin: 0.1rem auto 1rem auto;
+      ">
+      <img src="static/images/bd3lm.gif" style="padding-bottom: 60px; width:80%;">
 
-      <h2 class="subtitle has-text-centered">
-        <strong>Diffusion</strong>: 
-        <span style="color: red; padding-left: 10px;">&#10060; Lower quality</span> 
-        <span style="color: red; padding-left: 10px;">&#10060; Fixed-length</span> 
-        <span style="color: red; padding-left: 10px;">&#10060; No KV caching</span> 
-        <span style="color: green; padding-left: 10px;">&#9989; Parallelizable</span> 
-      </h2>
-      <img src="static/images/mdlm.gif" style="padding-bottom: 60px;">
       <h2 class="subtitle has-text-centered" style="padding-top: 20px;">
-        <strong>Block Diffusion</strong>: 
-        <span style="color: green; padding-left: 10px;">&#9989; High quality</span> 
-        <span style="color: green; padding-left: 10px;">&#9989; Arbitrary-length</span> 
-        <span style="color: green; padding-left: 10px;">&#9989; KV caching</span>
-        <span style="color: green; padding-left: 10px;">&#9989; Parallelizable</span> 
+        <span style="color: #2e7d32;">Fast, <b>encoder-decoder</b> diffusion.</span><br>
+         <span class="legend-box border-1-solid">Large encoder caches clean context</span> <span class="legend-box border-1-dotted">Small decoder denoises tokens</span>
       </h2>
-      <img src="static/images/bd3.gif" style="padding-bottom: 20px; width:80%;">
+      <hr style="
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        width: 80%;
+        margin: 0.1rem auto 1rem auto;
+      ">
+      <img src="static/images/e2d2.gif" style="padding-bottom: 20px; width:80%;">
       </div>
   </div>
-</section> -->
-<!-- End teaser video -->
+</section> 
+<!-- End teaser video
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -172,28 +170,7 @@
 </section>
 <!-- End paper abstract -->
 
-<!-- AR VS DIFFUSION -->
-<!-- <section class="section" id="SEC1">
-  <div class="container is-max-desktop content">
-    <div class="content is-medium">
-      <h2 class="title">Autoregressive vs. Diffusion Language Models</h2>
-      <p>
-        In the language modeling task, we have a sequence of \( L \) tokens \( \mathbf{x} = (\mathbf{x}^1, \dots, \mathbf{x}^L ) \) drawn from the data distribution \( q(\mathbf{x}) \). We aim to fit a model \( p_\theta(\mathbf{x}) \) of \( q \).
-      </p>
-        Autoregressive models define a factorized distribution of the form:
-      </p>
-      <p>
-        \[ \log p_\theta(\mathbf{x}) = \sum_{\ell=1}^L \log p_\theta(\mathbf{x}^\ell \mid \mathbf{x}^{\lt \ell}) \]
-      </p>
-      <p>However, the sequential dependencies between tokens require that AR sampling is restricted to \( L \) sampling steps, which may be slow for long sequences.</p>
-      <p>Diffusion models overcome this limitation by modeling tokens independently, admitting parallel generation. Diffusion models instead fit a model to undo a forward corruption process \( q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \text{Cat}(\mathbf{x_t} ; Q_t \mathbf{x}_{t-1} ) \) using transition matrices \( Q_t \). D3PM (<a href="https://arxiv.org/abs/2107.03006">Austin et. al</a>) defines this as</p>
-      <p>
-        \[ p_\theta(\mathbf{x}_s | \mathbf{x}_t) = \prod_{\ell=1}^L p_\theta (\mathbf{x}_s^\ell | \mathbf{x}_t) = \sum_{\mathbf{x}} \left[q(\mathbf{x}_s^{\ell} | \mathbf{x}_t^\ell, \mathbf{x}^\ell) p_\theta(\mathbf{x}^{\ell} | \mathbf{x}_t)  \right] \]
-      </p>
-      <p>where the denoising base model \( p_\theta(\mathbf{x}^\ell | \mathbf{x}_t) \) predicts clean token \( \mathbf{x}^\ell \) given noised tokens \( \mathbf{x}_t \). However, the diffusion objective minimizes a bound on the likelihood. As a result, diffusion models lag in terms of likelihood and sample quality. Furthermore, diffusion models are restricted to generate fixed length sequences.</p>
-    </div>
-  </div>
-</section> -->
+
 
 <!-- BD3-LMs -->
 <style>
@@ -211,6 +188,22 @@
         .link-block .icon {
           font-size: 1.2em;
         } */
+
+      .legend-box {
+        background: rgb(214, 234, 248); /* same as box_fill */
+        border-radius: 6px;
+        padding: 6px 12px;
+        display: inline-block;
+        min-width: 100px;
+        text-align: center;
+        color: rgb(28, 59, 87); /* same text color as your code */
+        margin: 4px;
+        font-size: 0.8em;
+      }
+      .no-border { border: none; }
+      .border-3-solid { border: 3px solid #000; }
+      .border-1-solid { border: 1px solid #000; }
+      .border-1-dotted { border: 1px dotted #000; }
 
       .container.is-max-desktop {
           max-width: 50%; /* Increase the width */
