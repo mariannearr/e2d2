@@ -64,7 +64,7 @@
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block">Department of Computer Science, Cornell University. <sup>*</sup> Equal contribution; corresponding authors</span> 
+              <span class="author-block">Cornell Tech. <sup>*</sup>Equal contribution; corresponding authors</span> 
             </div>
 
             <div class="is-size-6 publication-flag" style="padding-top: 20px; padding-bottom: 20px;">
@@ -158,6 +158,7 @@
         padding-top: 8px !important; /* reduce vertical space below NeurIPS 2025 */
         padding-bottom: 8px !important; /* reduce vertical space below NeurIPS 2025 */
       }
+      
     
       .link-buttons{
         display:flex;
@@ -203,6 +204,15 @@
         outline:2px solid #8ab4f8;   /* accessible focus ring */
         outline-offset:2px;
       }
+
+      .hero:not(.teaser) .hero-body {
+          padding-bottom: 0.75rem;  /* was ~3rem */
+        }
+
+        /* Reduce space above the teaser hero */
+        .hero.teaser .hero-body {
+          padding-top: 0.75rem;     /* was ~3rem */
+        }
 
 
       .legend-box {
