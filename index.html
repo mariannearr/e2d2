@@ -130,21 +130,6 @@
   </div>
 </section> 
 
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-five-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Discrete diffusion models enable parallel token sampling for faster inference than autoregressive approaches. However, prior diffusion models use a decoder-only architecture, which requires sampling algorithms that invoke the full network at every denoising step and incur high computational cost. Our key insight is that discrete diffusion models perform two types of computation: 1) representing clean tokens and 2) denoising corrupted tokens, which enables us to use separate modules for each task. We propose an encoder-decoder architecture to accelerate discrete diffusion inference, which relies on an encoder to represent clean tokens and a lightweight decoder to iteratively refine a noised sequence. We also show that this architecture enables faster training of block diffusion models, which partition sequences into blocks for better quality and are commonly used in diffusion language model inference. We introduce a framework for <strong>E</strong>fficient <strong>E</strong>ncoder-<strong>D</strong>ecoder <strong>D</strong>iffusion (E2D2), consisting of an architecture with specialized training and sampling algorithms, and we show that E2D2 achieves superior trade-offs between generation quality and inference throughput on summarization, translation, and mathematical reasoning tasks.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 
 <!-- BD3-LMs -->
@@ -242,8 +227,12 @@
             padding-left: 5%;
             padding-right: 5%;
         }
-        .hero-body {
-        text-align: center; /* keep your centering intention */
+      .hero-body {
+        display: flex;
+        flex-direction: column;   /* keeps elements stacked vertically */
+        justify-content: center;  /* vertical centering */
+        align-items: center;      /* horizontal centering */
+        text-align: center;       /* keep text centered inside child elements */
       }
       
       .subtitle.has-text-centered {
@@ -290,6 +279,19 @@
             margin-bottom: 10px;
             font-size: 16px;
         }
+      /* Reduce top margin between second figure and text */
+      #SEC2 .hero.is-small {
+        margin-top: 0rem !important;   /* reduce space above the figure */
+      }
+
+      #SEC2 .hero.is-small .hero-body {
+        padding-top: 0.25rem !important;  /* reduce padding inside the figure section */
+      }
+      /* Space AROUND the tables */
+      table {
+        margin: 2rem auto;           /* more room above/below + centered */
+      }
+
   .color-box {
       display: inline-block;
       width: 20px;
@@ -304,305 +306,125 @@
   .green { background-color: #228B22; }
   .light-green { background-color: #90EE90; }
 </style>
-<style>
-  table {
-    width: 50%; /* Reduce overall table width */
-    margin: 10px auto;
-    border-collapse: collapse;
-    font-size: 18px; /* Reduce font size */
-  }
 
-  th, td {
-    padding: 4px 6px; /* Reduce padding */
-    border: 1px solid #ddd; /* Keep border for readability */
-    text-align: center;
-  }
 
-  th {
-    background-color: #f2f2f2;
-  }
 
-  .figure-caption {
-    font-size: 18px; /* Reduce caption font size */
-  }
-</style>
-
-<section class="section" id="SEC2">
-    <div class="container is-max-desktop">
-      <div class="content is-medium">
-        <strong>Work in progress. Expected publication date: Oct 27.</strong>
-      </div>
-    </div>
-</section>
-
-<!-- 
 <section class="section" id="SEC2">
   <div class="container is-max-desktop">
     <div class="content is-medium">
-      <h2 class="title">BD3-LMs: Block Discrete Denoising Diffusion Language Models</h2>
-      <p>We combine modeling paradigms to enjoy better likelihoods & flexible-length generation from autoregressive models, as well as fast & parallel generation from diffusion models.</p> 
-      <h4 class="subtitle">Block Diffusion Likelihood</h4>
-      <p>We propose a modeling framework that autoregressively models blocks of tokens and performs diffusion within each block. Our likelihood factorizes over \( B \) blocks of length \( L' \) as</p>
-      <p>
-        \[ \log p_\theta (\mathbf{x}) = \sum_{b=1}^B \log p_\theta (\mathbf{x}^b | \mathbf{x}^{\lt b}) \]
-      </p>
-      <p>Each \( p_\theta (\mathbf{x}^b | \mathbf{x}^{\lt b}) \) is modeled using discrete diffusion ELBO over a block of \( L' \) tokens. We obtain a principled learning objective \( \mathcal{L}_\text{BD}(\mathbf{x}, \theta) \) by optimizing the following likelihood bound:</p>
-      <p>
-        \[ \log p_\theta(\mathbf{x}) \geq \mathcal{L}_\text{BD}(\mathbf{x}, \theta) := \sum_{b=1}^{B} \mathcal{L}_{\text{diffusion}}(\mathbf{x}^b, \mathbf{x}^{\lt b}, \theta), \]
-      </p>
-      We model the per-block likelihood under a simple discrete diffusion parameterization (<a href="https://arxiv.org/abs/2406.07524">Sahoo et. al</a>, <a href="https://arxiv.org/abs/2406.04329">Shi et. al</a>, <a href="https://arxiv.org/abs/2406.03736">Ou et. al</a>). Our final objective becomes a sum of weighted cross-entropy terms:
-      <p>
-        \[ \mathcal{L}_\text{BD}(\mathbf{x}, \theta) :=  - \sum_{b=1}^{B} \mathbb{E}_{t \sim [0, 1]} \mathbb{E}_{q} \frac{1}{t} \log p_\theta(\mathbf{x}^b | \mathbf{x}_{t}^b, \mathbf{x}^{\lt b}) \]
-      </p>
-      <h4 class="subtitle">Efficient Training & Sampling Algorithms</h4>
-      <p> Naively, we would compute the logits by applying \( \mathbf{x}_\theta^b( \mathbf{x}_t^b, \mathbf{K}^{1:b\text{-}1}, \mathbf{V}^{1:b\text{-}1}) \) in a loop \( B\) times. Instead, we only require two forward passes. The first pass precomputes keys and values \( \mathbf{K}^{1:B}, \mathbf{V}^{1:B} \) for the full sequence \( \mathbf{x}\). In the second forward pass, we compute denoised predictions for all blocks simulatenously using  \( \mathbf{x}_\theta^b( \mathbf{x}_t^b, \mathbf{K}^{1:b\text{-}1}, \mathbf{V}^{1:b\text{-}1}) \). </p>
-      <p> To sample from BD3-LMs, we generate one block at a time, conditioned on previously sampled blocks. After generating a block, we cache its keys and values, similar to AR. We may use any diffusion sampling procedure \( \text{SAMPLE} ( \mathbf{x}_\theta^b, \mathbf{K}^{1:b\text{-}1}, \mathbf{V}^{1:b\text{-}1}) \) to sample from the conditional distribution \( p_\theta (\mathbf{x}_s^b | \mathbf{x}_t^b, \mathbf{x}^{ < b}) \) over \( T\) sampling steps per block.</p>
-      <section class="hero is-small">
-        <div class="hero-body">
-        <img src="static/images/alg.png" alt="mask" style="width:80%; padding-bottom: 10px;">
-        <div class="figure-caption" style="padding-bottom: 10px;">
-          <i>BD3-LM training and sampling algorithms.</i>
-      </div>
-        </div>
-      </section>
-    </div>
-  </div>
-</section> -->
+      <p>To generate samples, diffusion models iteratively refine a sequence consisting of both clean and corrupted tokens. Our key insight is that this process consists of: 1) producing useful representations of clean tokens and 2) denoising corrupted tokens.</p>
 
-<!-- GAP -->
-<!-- <section class="section" id="SEC2">
-  <div class="container is-max-desktop content">
-    <div class="content is-medium">
-      <h2 class="title">Understanding Likelihood Gaps Between Diffusion and AR Models</h2>
-      <h4 class="subtitle">Case Study: Single Token Generation</h4>
-      <p>Our block diffusion parameterization is equivalent in expectation to the autoregressive NLL in the limiting case where \( L'=1 \). Surprisingly, we find a two point perplexity gap between our block diffusion model for \( L'=1 \) and AR when training both models on the LM1B dataset. We identify high training variance of the diffusion objective as responsible for the perplexity gap.</p>
-      <section class="hero is-small">
-        <div class="hero-body">
-        <img src="static/images/bs1.png" alt="mask" style="width:80%; padding-bottom: 10px;">
-        <div class="figure-caption" style="padding-bottom: 10px;">
-          <i>Training under the discrete diffusion ELBO suffers from high variance.</i>
-      </div>
-        </div>
-      </section>
-      <h4 class="subtitle">Diffusion Gap from High Variance Training</h4>
-        <p>Intuitively, if the sampled masking rate \( t \sim \mathcal{U}[0, 1] \) is too low, reconstructing \( \mathbf{x} \) is easy, which does not provide a useful learning signal. If we mask everything, the optimal reconstruction are the marginals of each token in the data distribution, which is easy to learn, and again not useful.</p>
-        We seek to find noise schedules that minimize training variance caused by the diffusion objective and further reduce the perplexity gap.</p>
-      </div>
-  </div>
-</section> -->
+      <p>However, prior diffusion language models jointly perform both tasks within the same decoder-only architecture. Thus, these models must expensively invoke the full network at every denoising step.</p>
 
-<!-- CLIPPED SCHEDULES -->
-<!-- <section class="section" id="SEC2">
-  <div class="container is-max-desktop content">
-    <div class="content is-medium">
-      <h2 class="title">Data-Driven Noise Schedules for Low-Variance Training</h2>
-      <p>To avoid masking rates that cause high-variance training, we train BD3-LMs under "clipped" masking rates \( t \sim \mathcal{U}[\beta, \omega] \) for \( 0 \leq \beta, \omega \leq 1 \). By reducing the training variance, we improve likelihoods when we evaluate under uniformly sampled mask rates.</p>
-
-      <p>As the optimal mask rates may differ depending on the block size \(L'\), we adaptively learn \( \beta, \omega \) during training. In practice, we do so using a grid search during every validation step, after 5K gradient updates, to optimize \(\min_{\beta, \omega} \text{Var}_{\mathbf{X}, t} \left[ \mathcal{L}_{\text{BD}}(\theta, \beta, \omega; \mathbf{X}) \right] \). </p>
+      <p>We propose an encoder-decoder transformer architecture to separate the computation for these tasks. We use an encoder to represent clean tokens and a lightweight decoder to iteratively refine a noised sequence conditioned on the encoder’s representation. This enables faster inference, as we call the lightweight decoder multiple times to iteratively denoise tokens and invoke the encoder only periodically to update its representations.</p>
       
-      <p>Below, we show that optimizing the noise schedule per block size reduces the variance of the loss estimator and achieves the best perplexities compared to alternative schedules.</p>
+      <p>Our <b>E</b>fficient <b>E</b>ncoder-<b>D</b>ecoder <b>D</b>iffusion (E2D2) consists of an encoder-decoder transformer architecture complemented with efficient training and sampling algorithms that enable both faster inference and KV caching support.</p>
+      <section class="hero is-small">
+        <div class="hero-body">
+        <img src="static/images/graphical_abstract.png" alt="mask" style="width:100%; padding-bottom: 10px;">
+        <div class="figure-caption" style="padding-bottom: 10px; font-size:16px">
+          <i>Efficient Encoder-Decoder Diffusion (E2D2) enables faster generation than decoder-only architectures.</i>
+      </div>
+        </div>
+      </section>
+      <p>Our encoder-decoder architecture enables faster training of block diffusion models, which partition sequences into blocks to improve generation quality and support KV caching. Block diffusion is widely used for generating with large diffusion language models, even those trained with standard full-sequence diffusion (e.g., LLaDA, Seed Diffusion, MMaDA). 
+        
+      <p>However, decoder-only block diffusion incurs higher training costs, with forward passes that are 2× more expensive than standard diffusion, as both the full clean and noised sequences must be processed in every transformer layer.</p>
+      
+      <p>Encoder-decoder block diffusion uses the encoder to process the clean sequence and the decoder to process the noised sequence, halving training costs compared to a decoder-only model of equal size. During inference, the decoder generates each block of tokens, then the encoder caches their KVs.</p>
     </div>
-
   </div>
-</section> -->
+</section>
+
 
 <!-- RESULTS -->
-<!-- <section class="section" id="SEC2">
+<section class="section" id="SEC2">
   <div class="container is-max-desktop content">
     <div class="content is-medium">
       <h2 class="title">Results</h2>
-      <h4 class="subtitle">Likelihood Evaluation</h4>
-      <p>BD3-LMs achieve state-of-the-art likelihoods among diffusion models. As shown below, BD3-LMs interpolate between diffusion and autoregressive likelihoods by tuning the block length \( L' \). </p>
-      <style>
-        img {
-          width: 80%;
-        }
-        table {
-          border-collapse: collapse;
-          width: 100%;
-        }
-        th, td {
-          padding: 8px;
-          text-align: left;
-        }
-        /* Top border for category headers, without bottom border */
-        tr.category-row td {
-          border-top: 2px solid #000;
-          border-bottom: none;
-        }
-        /* Bold top border for the block-diffusion section */
-        tr.block-diffusion-row td {
-          border-top: 2px solid #000; /* Bold border */
-          border-bottom: none;
-        }
-        /* Remove bottom borders for grouped models */
-        tr.grouped-models td {
-          border-bottom: none;
-        }
-        /* Light bottom border specifically for the last row in block-diffusion */
-        tr.final-row td {
-          border-bottom: 2px solid #000; /* Light border */
-        }
-        /* Make BD3-LMs invisible */
-        .invisible {
-          visibility: hidden; /* Makes text invisible but preserves space */
-        }
-      </style>
-      <style>
-        .compact-table {
-            max-width: 400px;  /* Adjust width as needed */
-            width: 100%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-        .compact-table th, .compact-table td {
-            padding: 5px 10px;  /* Reduce padding */
-            text-align: left;
-            white-space: nowrap; /* Prevent wrapping */
-        }
-        .compact-table th {
-            background-color: #f2f2f2; /* Light gray header */
-        }
-    </style>
-      <table class="compact-table">
-            <center>
-                <i>Test perplexities (PPL; ↓) on OWT for models trained for 262B tokens.</i>
-            </center>
-        </div>
-        <thead>
-            <tr>
-                <th>Model</th>
-                <th>PPL (↓)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>AR</td>
-                <td>17.54</td>
-            </tr>
-            <tr>
-                <td>SEDD</td>
-                <td>≤ 24.10</td>
-            </tr>
-            <tr>
-                <td>MDLM</td>
-                <td>≤ 22.98</td>
-            </tr>
-            <tr>
-                <td><strong>BD3-LMs</strong> L' = 16</td>
-                <td>≤ 22.27</td>
-            </tr>
-            <tr>
-                <td><span class="invisible">BD3-LMs</span> L' = 8</td>
-                <td>≤ 21.68</td>
-            </tr>
-            <tr>
-                <td><span class="invisible">BD3-LMs</span> L' = 4</td>
-                <td><strong>≤ 20.73</strong></td>
-            </tr>
-        </tbody>
-    </table>
-
-      <h4 class="subtitle" style="margin-top: 40px;">Arbitrary-length sequence generation</h4>
-      <p>One key drawback of many existing diffusion language models is that they cannot generate full-length documents that are longer than the length of the output context chosen at training time. For example, OpenWebText contains documents up to 131K tokens, whereas discrete diffusion model SEDD (<a href="https://arxiv.org/abs/2310.16834">Lou et. al</a>) is restricted to generate 1024 tokens. Below, we show that BD3-LMs can generate variable-length documents by decoding an arbitrary number of blocks.</p>
-      
-      <table class="compact-table" style="margin-bottom: 40px;">
-        <div class="figure-caption">
-        <center>
-          <i>Generation length statistics from sampling 500 documents from models trained on OWT.</i>
-        </center>
+        <p>
+          We focus on applying the encoder-decoder architecture to parameterizing block diffusion as it attains superior language modeling performance compared to full-sequence masked diffusion, it enables exact KV caching for faster inference, and even recent diffusio LLMs which are trained with the full-sequence masked diffusion parameterization apply on block autoregressive decoding at inference.
+        </p>
+        <p>
+          By varying the depth of E2D2’s decoder and that of decoder-only block diffusion (BD3LM), we examine the trade-off between performance and throughput. We fine-tune models for mathematical reasoning on the GSM8K dataset and compute 0-shot pass@1 accuracy and decoding throughput. E2D2 extends the Pareto frontier of quality and speed as shown below.
+        </p>
+        <section class="hero is-small">
+        <div class="hero-body">
+        <img src="static/images/pareto_frontier.png" alt="mask" style="width:70%; padding-bottom: 10px;">
+        <div class="figure-caption" style="padding-bottom: 10px; font-size:16px;">
+          <i>Mapping the Pareto Frontier: Larger models increase accuracy on GSM8K at the cost of slower decoding.</i>
       </div>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Median # tokens</th>
-            <th>Max # tokens</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>OWT train set</td>
-            <td>717</td>
-            <td>131K</td>
-          </tr>
-          <tr>
-            <td>AR</td>
-            <td>4008</td>
-            <td>131K</td>
-          </tr>
-          <tr>
-            <td>SEDD</td>
-            <td>1021</td>
-            <td>1024</td>
-          </tr>
-          <tr>
-            <td><strong>BD3-LM</strong> L'=16</td>
-            <td>798</td>
-            <td>9982</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      
-      <p> We assess the generation quality of BD3-LMs on variable-length sequences, comparing all methods using the same number of generation steps (NFEs). Below, we measure the generative perplexity of sampled sequences under GPT2-Large. BD3-LMs achieve the best generative perplexities compared to all previous diffusion methods.</p>
+        </div>
+      </section>
+      <p>
+        For machine translation, E2D2 is able to match or outperform our diffusion baselines while achieving higher throughput. Compared to MDLM, which does not support exact KV caching, E2D2 offers better downstream task performance with ∼3× faster inference. As shown below, E2D2 achieves higher throughput and task performance relative to the 16-layer BD3LM. While a small 12-layer BD3LM approaches the throughput of E2D2, its BLEU score worsens further.
+      </p>
+
+      <table style="width:70%; border-collapse:collapse; font-size:16px; padding:2em;">
+      <thead>
+        <tr style="background-color:#f2f2f2;">
+          <th>Model</th>
+          <th>N</th>
+          <th>Tput (↑)</th>
+          <th>BLEU (↑)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AR</td><td>32</td><td>77.6 ± 0.4</td><td><b>25.2</b></td></tr>
+        <tr><td>MDLM</td><td>32</td><td>60.4 ± 0.8</td><td>18.4</td></tr>
+        <tr><td>BD3LM</td><td>12</td><td>129.6 ± 0.7</td><td>23.3</td></tr>
+        <tr><td>BD3LM</td><td>16</td><td>102.4 ± 0.5</td><td>24.0</td></tr>
+        <tr><td>E2D2 (Ours)</td><td>28/4</td><td><b>162.0 ± 1.4</b></td><td><b>24.8</b></td></tr>
+      </tbody>
+        <caption style="caption-side:bottom; padding:1em;">
+        <i>WMT (de-en) test BLEU score. Best values for our trained models are <b>bolded</b>.</i>
+      </caption>
+    </table>
+    <p>As above, E2D2 shows improved downstream performance on mathematical reasoning and decoding throughput compared to diffusion baselines.</p>
+
+    <table style="width:90%; border-collapse:collapse; font-size:16px;">
+  <caption style="caption-side:bottom; padding:8px;">
+    <i>Evaluation on GSM8K test set. Best diffusion value is <b>bolded</b>.</i>
+  </caption>
+  <thead>
+    <tr style="background-color:#f2f2f2;">
+      <th>Model</th>
+      <th>N</th>
+      <th>PPL (↓)</th>
+      <th>0-shot pass@1 (↑)</th>
+      <th>Tput (↑)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>AR</td><td>28</td><td>1.49</td><td>66.6</td><td>94.1 ± 0.5</td></tr>
+    <tr><td>MDLM</td><td>28</td><td>≤ 2.30</td><td>14.0</td><td>31.9 ± 3.0</td></tr>
+    <tr><td>BD3LM</td><td>21</td><td>≤ 1.87</td><td>33.2</td><td>86.6 ± 0.5</td></tr>
+    <tr><td>E2D2 (Ours)</td><td>28/14</td><td><b>≤1.80</b></td><td><b>47.9</b></td><td><b>102.8 ± 0.6</b></td></tr>
+  </tbody>
+</table>
         
-      <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center; /* Center align all table entries */
-            vertical-align: middle;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        caption {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
-    <p>For MDLM, we use their block-wise decoding technique (which does not feature block diffusion training as in BD3-LMs) for L=2048. We also compare to SSD-LM (<a href="https://arxiv.org/abs/2210.17432">Han et. al</a>) an alternative block-autoregressive method (also known as semi-autoregression) that performs Gaussian diffusion over word embeddings but cannot perform likelihood estimation. Our discrete approach yields samples with improved generative perplexity using an order of magnitude fewer generation steps.</p>
 
     </div>
   </div>
-</section> -->
-
-
-<!-- CONCLUSION -->
-<!-- <section class="section" id="SEC2">
-  <div class="container is-max-desktop content">
-    <div class="content is-medium">
-      <h2 class="title">Conclusion</h2>
-      <p>We presented Block Discrete Diffusion Language models, a new model class that combines strength of both autoregressive and diffusion approaches while overcoming their limitations. Block diffusion overcomes key drawbacks of existing discrete diffusion models: the quality gap to AR model and their inability to generate arbitrary-length sequences or support KV caching. By doing so, BD3-LMs set a new state-of-the-art among discrete diffusion models. Our work presents a promising step forward in building powerful diffusion language models that are competitive with standard LLMs, while offering parallel token generation and improved controllability of samples.</p>
-    </div>
-  </div>
-</section> -->
-
-
+</section>
 
 
 <!--BibTex citation -->
-  <!-- <section class="section" id="BibTeX">
+  <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>
-        @inproceedings{
-          arriola2025e2d2,
-          title={Encoder-Decoder Diffusion Language Models for Efficient Training and Inference},
-          author={Marianne Arriola and Yair Schiff and Hao Phung and Aaron Gokaslan and Volodymyr Kuleshov},
-          booktitle={Advances in Neural Information Processing Systems},
-          year={2025},
-          url={https://openreview.net/forum?id=5jneOToPou&referrer=%5Bthe%20profile%20of%20Marianne%20Arriola%5D(%2Fprofile%3Fid%3D~Marianne_Arriola1)}
-        }
+@inproceedings{
+  arriola2025e2d2,
+  title={Encoder-Decoder Diffusion Language Models for Efficient Training and Inference},
+  author={Marianne Arriola and Yair Schiff and Hao Phung and Aaron Gokaslan and Volodymyr Kuleshov},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+  year={2025},
+  url={TODO}
+}
       </code></pre>
     </div>
-</section> -->
+</section>
 <!--End BibTex citation -->
 
 
